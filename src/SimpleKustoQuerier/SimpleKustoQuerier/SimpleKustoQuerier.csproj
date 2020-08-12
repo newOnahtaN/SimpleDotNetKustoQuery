@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Version>1.0.0</Version>
+    <PackageId>Microsoft.Office.Engineering.SimpleKustoQuerier</PackageId>
+    <Authors>Nate Owen</Authors>
+    <Company>microsoft</Company>
+    <PackageTags>Kusto;Microsoft;Azure Data Explorer</PackageTags>
+    <Description>
+      The first party .NET Kusto client library provides a highly abstracted API similar to that of ADO.NET, which is useful for some scenarios but cumbersome if all that is wanted is straightforward query execution.
+      This .NET Standard library provides a handful of simple query execution methods which allow it's users to cut through those abstractions and simply execute and receive a list of dynamic objects in response.
+    </Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
