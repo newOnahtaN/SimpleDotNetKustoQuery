@@ -1,3 +1,4 @@
+![BuildAndPulishNuget](https://github.com/microsoft/SimpleDotNetKustoQuerier/workflows/BuildAndPulishNuget/badge.svg)
 # Description
 [The first party .NET Kusto client library](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/api/netfx/about-kusto-data) provides a highly abstracted API similar to that of ADO.NET, which is useful for some scenarios but cumbersome if all that is wanted is straightforward query execution. 
 
