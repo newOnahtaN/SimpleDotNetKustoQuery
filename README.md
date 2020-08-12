@@ -1,3 +1,45 @@
+# Description
+[The first party .NET Kusto client library](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/api/netfx/about-kusto-data) provides a highly abstracted API similar to that of ADO.NET, which is useful for some scenarios but cumbersome if all that is wanted is straightforward query execution. 
+
+This .NET Standard library provides a handful of simple query execution methods which allow it's users to cut through those abstractions and simply execute and receive a list of dynamic objects in response. 
+
+# Examples
+
+Simple Query, assuming implicit AAD service authentication
+```
+string query = "GenericTableName | limit 10";
+var kustoQuerier = new KustoQuerier("clustername", "databasename");
+IEnumerable<dynamic> = await kustoQuerier.ExecuteQueryAsync(query);
+```
+
+Simple Query, with explicit authentication
+```
+// Any authentication method provided as a part of KustoConnectionStringBuilder can be used.
+// We use AAD Authentication in this example.
+// Reference: https://docs.microsoft.com/en-us/azure/data-explorer/kusto/api/netfx/about-kusto-data
+var connectionStringBuilder = new KustoConnectionStringBuilder(cluster, database).WithAadApplicationTokenAuthentication(accessToken);
+string accessToken = "<access_token>"
+connectionStringBuilder.FederatedSecurity = true;
+
+string query = "GenericTableName | limit 10";
+var kustoQuerier = new KustoQuerier("clustername", "databasename");
+IEnumerable<dynamic> = await kustoQuerier.ExecuteQueryAsync(query, connectionStringBuilder);
+```
+
+Simple Query, with explicit authentication and query parameters
+```
+var clientRequestProperties = new ClientRequestProperties { ClientRequestId = Guid.NewGuid().ToString() };
+clientRequestProperties.SetParameter("ExampleParameter", exampleParameterValue);
+
+var connectionStringBuilder = new KustoConnectionStringBuilder(cluster, database).WithAadApplicationTokenAuthentication(accessToken);
+string accessToken = "<access_token>"
+connectionStringBuilder.FederatedSecurity = true;
+
+string query = "GenericTableName | limit 10";
+var kustoQuerier = new KustoQuerier("clustername", "databasename");
+IEnumerable<dynamic> = await kustoQuerier.ExecuteQueryAsync(query, clientRequestProperties, connectionStringBuilder);
+```
+
 
 # Contributing
 
