@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  buildAndPublish:
 
     runs-on: ubuntu-latest
     env: 
@@ -15,13 +15,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
+
     - name: Install dependencies
       run: dotnet restore
       working-directory: ${{env.working-directory}}
+      
     - name: Build
       run: dotnet build --configuration Release --no-restore
       working-directory: ${{env.working-directory}}
+      
+    - name: Publish 
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: ./src/SimpleKustoQuerier/SimpleKustoQuerier/SimpleKustoQuerier.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
